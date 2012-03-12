@@ -1,7 +1,28 @@
 @import tags._
 @main("Bämbelville") {
+    <script>
+        $(document).ready(function() {
+            $("#createPosting").click(update);
+            $("#createPosting").keypress(update);
+            $("#createPosting").keyup(update);
+        });
+
+        function update() {
+            var subject = $("#subject").val();
+            $('#previewSubject').html(subject);
+
+            var name = $("#name").val();
+            $('#previewName').html(name);
+
+            var description = $("#description").val();
+            $('#previewDescription').html(description);
+
+            var contact = $("#contact").val();
+            $('#previewContact').html(contact);
+        }
+    </script>
     <div data-role="page" id="createPosting">
-        <div data-role="inline" style="width: 800px; margin: 0 auto; position: static; text-align:center;">
+        <div data-role="inline" id="header">
             @title()
             <div data-role="navbar">
                 <ul>
@@ -11,7 +32,51 @@
                 </ul>
             </div>
             <div data-role="content">
-                TODO
+                <form method="post">
+
+                    <div data-role="fieldcontain">
+                        <label for="subject">Titel:</label>
+                        <input type="text" name="subject" id="subject" value=""/>
+                    </div>
+
+                    <div data-role="fieldcontain">
+                        <label for="name">Name:</label>
+                        <input type="text" name="name" id="name" value=""/>
+                    </div>
+
+                    <div data-role="fieldcontain">
+                        <label for="description">Beschreibung:</label>
+                        <input type="text" name="description" id="description" value=""/>
+                    </div>
+
+                    <div data-role="fieldcontain">
+                        <label for="contact">Telefon / EMail:</label>
+                        <input type="text" name="contact" id="contact" value=""/>
+                    </div>
+
+                    <div data-role="fieldcontain">
+                        <fieldset data-role="controlgroup" data-type="horizontal">
+                            <legend>Kategorie:</legend>
+                            <input type="radio" name="radio-choice-1" id="radio-choice-1" value="choice-1" checked="checked" />
+                            <label for="radio-choice-1">"Geh" (Ich biete)</label>
+
+                            <input type="radio" name="radio-choice-1" id="radio-choice-2" value="choice-2"  />
+                            <label for="radio-choice-2">"Neh" (Ich suche)</label>
+                        </fieldset>
+                    </div>
+
+                    <div data-role="fieldcontain">
+                        <label>Vorschau:</label>
+                        <ul data-role="listview" id="preview">
+                            <li>
+                                <h3 id="previewSubject">Titel</h3>
+                                <p><strong id="previewName">Name</strong></p>
+                                <p id="previewDescription">Beschreibung</p>
+                                <p class="ui-li-aside"><strong id="previewContact">Telefon / EMail</strong></p>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

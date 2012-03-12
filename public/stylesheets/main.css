@@ -1,0 +1,9 @@
+#header {
+    width: 800px;
+    margin: 0 auto;
+    position: static;
+}
+
+#preview {
+    padding-top: 30px;
+}
