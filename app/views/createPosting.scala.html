@@ -1,3 +1,4 @@
+@(postingForm: Form[(String,String)])
 @import tags._
 @main("Bämbelville") {
     <script>
@@ -32,38 +33,14 @@
                 </ul>
             </div>
             <div data-role="content">
-                <form method="post">
+                @helper.form(action = routes.Application.newPosting) {
 
                     <div data-role="fieldcontain">
-                        <label for="subject">Titel:</label>
-                        <input type="text" name="subject" id="subject" value=""/>
+                        @helper.inputText(postingForm("subject"))
+                        @helper.inputText(postingForm("description"))
                     </div>
 
-                    <div data-role="fieldcontain">
-                        <label for="name">Name:</label>
-                        <input type="text" name="name" id="name" value=""/>
-                    </div>
-
-                    <div data-role="fieldcontain">
-                        <label for="description">Beschreibung:</label>
-                        <input type="text" name="description" id="description" value=""/>
-                    </div>
-
-                    <div data-role="fieldcontain">
-                        <label for="contact">Telefon / EMail:</label>
-                        <input type="text" name="contact" id="contact" value=""/>
-                    </div>
-
-                    <div data-role="fieldcontain">
-                        <fieldset data-role="controlgroup" data-type="horizontal">
-                            <legend>Kategorie:</legend>
-                            <input type="radio" name="radio-choice-1" id="radio-choice-1" value="choice-1" checked="checked" />
-                            <label for="radio-choice-1">"Geh" (Ich biete)</label>
-
-                            <input type="radio" name="radio-choice-1" id="radio-choice-2" value="choice-2"  />
-                            <label for="radio-choice-2">"Neh" (Ich suche)</label>
-                        </fieldset>
-                    </div>
+                    <input type="submit" value="OK"  />
 
                     <div data-role="fieldcontain">
                         <label>Vorschau:</label>
@@ -76,7 +53,7 @@
                             </li>
                         </ul>
                     </div>
-                </form>
+                } <!-- end form -->
             </div>
         </div>
     </div>
