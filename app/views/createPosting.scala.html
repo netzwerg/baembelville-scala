@@ -1,5 +1,6 @@
 @(postingForm: Form[(String,String)])
 @import tags._
+@import helper.twitterBootstrap._
 @main("Bämbelville") {
     <script>
         $(document).ready(function() {
@@ -22,39 +23,28 @@
             $('#previewContact').html(contact);
         }
     </script>
-    <div data-role="page" id="createPosting">
-        <div data-role="inline" id="header">
-            @title()
-            <div data-role="navbar">
-                <ul>
-                    <li><a href="listOffered" data-icon="back">Geh</a></li>
-                    <li><a href="createPosting" class="ui-btn-active" data-icon="star">Gratis-Inserat Erfassen</a></li>
-                    <li><a href="listWanted" data-icon="forward">Neh</a></li>
-                </ul>
-            </div>
-            <div data-role="content">
-                @helper.form(action = routes.Application.newPosting) {
+    @title(false)
+    <ul class="nav nav-tabs">
+        <li><a href="listOffered">Geh</a></li>
+        <li><a href="listWanted">Neh</a></li>
+    </ul>
 
-                    <div data-role="fieldcontain">
-                        @helper.inputText(postingForm("subject"))
-                        @helper.inputText(postingForm("description"))
-                    </div>
+    @helper.form(action = routes.Application.newPosting) {
 
-                    <input type="submit" value="OK"  />
+        @helper.inputText(postingForm("subject"), '_label -> "Titel")
+        @helper.inputText(postingForm("description"), '_label -> "Beschreibung")
+        <input type="submit" class="btn btn-primary" value="OK">
 
-                    <div data-role="fieldcontain">
-                        <label>Vorschau:</label>
-                        <ul data-role="listview" id="preview">
-                            <li>
-                                <h3 id="previewSubject">Titel</h3>
-                                <p><strong id="previewName">Name</strong></p>
-                                <p id="previewDescription">Beschreibung</p>
-                                <p class="ui-li-aside"><strong id="previewContact">Telefon / EMail</strong></p>
-                            </li>
-                        </ul>
-                    </div>
-                } <!-- end form -->
-            </div>
-        </div>
-    </div>
+        <!--div data-role="fieldcontain">
+            <label>Vorschau:</label>
+            <ul id="preview">
+                <li>
+                    <h3 id="previewSubject">Titel</h3>
+                    <p><strong id="previewName">Name</strong></p>
+                    <p id="previewDescription">Beschreibung</p>
+                    <p><strong id="previewContact">Telefon / EMail</strong></p>
+                </li>
+            </ul>
+        </div-->
+    } <!-- end form -->
 }

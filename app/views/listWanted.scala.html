@@ -1,19 +1,10 @@
 @(postings: List[Posting])
 @import tags._
 @main("Bämbelville") {
-    <div data-role="page" id="listWanted">
-        <div data-role="inline" id="header">
-            @title()
-            <div data-role="navbar">
-                <ul>
-                    <li><a href="listOffered" data-icon="back">Geh</a></li>
-                    <li><a href="createPosting" data-icon="star">Gratis-Inserat Erfassen</a></li>
-                    <li><a href="listWanted" class="ui-btn-active" data-icon="forward">Neh</a></li>
-                </ul>
-            </div>
-            <div data-role="content">
-                @list(postings)
-            </div>
-        </div>
-    </div>
+    @title(true)
+    <ul class="nav nav-tabs">
+        <li><a href="listOffered">Geh</a></li>
+        <li class="active"><a href="listWanted">Neh</a></li>
+    </ul>
+    @list(postings)
 }

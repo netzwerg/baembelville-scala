@@ -1,1 +1,10 @@
-<h1>Bämbelville &mdash; Geh &amp; Neh</h1>
+@(showCreatePosting: Boolean)
+<div class="hero-unit">
+    <h1>Bämbelville &mdash; Geh &amp; Neh</h1>
+    <p>Nachbarschaftshilfe im Dorf.</p>
+    @if(showCreatePosting) {
+        <a class="btn btn-primary btn-large" href="createPosting">
+            Gratis Inserat Erfassen
+        </a>
+    }
+</div>
