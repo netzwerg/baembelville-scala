@@ -1,6 +1,5 @@
-@(postingForm: Form[(String,String)])
+@(postingForm: Form[(String, String, String, String, String)])
 @import tags._
-@import helper.twitterBootstrap._
 @main("Bämbelville") {
     <script>
         $(document).ready(function() {
@@ -24,17 +23,15 @@
         }
     </script>
     @title(false)
-    <ul class="nav nav-tabs">
-        <li><a href="listOffered">Geh</a></li>
-        <li><a href="listWanted">Neh</a></li>
-    </ul>
 
+    <div class="offset1">
     @helper.form(action = routes.Application.newPosting) {
-
-        @helper.inputText(postingForm("subject"), '_label -> "Titel")
-        @helper.inputText(postingForm("description"), '_label -> "Beschreibung")
-        <input type="submit" class="btn btn-primary" value="OK">
-
+            @helper.inputText(postingForm("subject"), '_label -> "Titel", 'class -> "span6")
+            @helper.textarea(postingForm("description"), '_label -> "Beschreibung", 'class -> "span6", 'rows -> "3")
+            @helper.inputText(postingForm("userName"), '_label -> "Name", 'class -> "span6")
+            @helper.inputText(postingForm("eMail"), '_label -> "E-Mail (wird nicht veröffentlicht)", 'class -> "span6")
+            @helper.inputText(postingForm("phone"), '_label -> "Telefon", 'class -> "span6")
+            <input type="submit" class="btn btn-primary" value="OK">
         <!--div data-role="fieldcontain">
             <label>Vorschau:</label>
             <ul id="preview">
@@ -47,4 +44,5 @@
             </ul>
         </div-->
     } <!-- end form -->
+    </div>
 }

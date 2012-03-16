@@ -22,7 +22,7 @@ object Application extends Controller {
     Posting.postingForm.bindFromRequest.fold(
       errors => BadRequest(views.html.listWanted(Posting.list())),
       data => {
-        Posting.create(data._1, data._2)
+        Posting.create(data)
         Redirect(routes.Application.listWanted())
       }
     )

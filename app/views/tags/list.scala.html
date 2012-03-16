@@ -1,11 +1,14 @@
 @(postings: List[Posting])
-<ul data-role="listview">
-    @postings.map { posting =>
-    <li>
-        <h3>@posting.subject</h3>
-        <p><strong>Bli</strong></p>
-        <p>@posting.description</p>
-        <p class="ui-li-aside"><strong>079 744 53 19</strong></p>
-    </li>
-    }
-</ul>
+@postings.map { posting =>
+    <div class="well">
+        <h2>@posting.subject</h2>
+        <h4>@posting.userName</h4>
+        <div id="desc">
+            @for(line <- posting.description.split("\\n")) {
+                @line
+                <br/>
+            }
+        </div>
+        <h6>@posting.phone</h6>
+    </div>
+}
