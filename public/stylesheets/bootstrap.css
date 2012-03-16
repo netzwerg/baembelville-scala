@@ -2530,6 +2530,7 @@ input[type="submit"].btn.btn-mini {
 }
 .nav-tabs,
 .nav-pills {
+  padding-left: 60px;
   *zoom: 1;
 }
 .nav-tabs:before,
@@ -2555,7 +2556,6 @@ input[type="submit"].btn.btn-mini {
   line-height: 14px;
 }
 .nav-tabs {
-  padding: 60px;
   border-bottom: 1px solid #ddd;
 }
 .nav-tabs > li {
