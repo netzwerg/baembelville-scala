@@ -3,8 +3,8 @@
 @main("Bämbelville") {
     @title(true)
     <ul class="nav nav-tabs">
-        <li><a href="listOffered">Geh</a></li>
-        <li class="active"><a href="listWanted">Neh</a></li>
+        <li><a href="@routes.Application.listOffered">Geh</a></li>
+        <li class="active"><a href="@routes.Application.listWanted">Neh</a></li>
     </ul>
     @list(postings)
 }

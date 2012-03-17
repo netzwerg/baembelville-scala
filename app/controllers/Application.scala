@@ -6,6 +6,10 @@ import models.Posting
 
 object Application extends Controller {
 
+  def index = Action {
+    Redirect(routes.Application.listOffered())
+  }
+
   def listWanted = Action {
     Ok(views.html.listWanted(Posting.list()))
   }
@@ -23,7 +27,7 @@ object Application extends Controller {
       errors => BadRequest(views.html.listWanted(Posting.list())),
       data => {
         Posting.create(data)
-        Redirect(routes.Application.listWanted())
+        Redirect(routes.Application.index())
       }
     )
   }
