@@ -22,12 +22,16 @@ object Application extends Controller {
     Ok(views.html.createPosting(Posting.postingForm))
   }
 
+  def verifyPosting = Action {
+    Ok(views.html.verifyPosting())
+  }
+
   def newPosting = Action { implicit request =>
     Posting.postingForm.bindFromRequest.fold(
       errors => BadRequest(views.html.listWanted(Posting.list())),
       data => {
         Posting.create(data)
-        Redirect(routes.Application.index())
+        Redirect(routes.Application.verifyPosting())
       }
     )
   }

@@ -8,7 +8,7 @@ import play.api.data._
 import play.api.data.Forms._
 
 
-case class Posting(id: Long, subject: String, description: String, userName: String, eMail: String, phone: String)
+case class Posting(id: Long, verified: Boolean, subject: String, description: String, userName: String, eMail: String, phone: String)
 
 object Posting {
 
@@ -24,18 +24,19 @@ object Posting {
 
   val posting = {
     get[Long]("id") ~
+    get[Boolean]("verified") ~
     get[String]("subject") ~
     get[String]("description") ~
     get[String]("userName") ~
     get[String]("eMail") ~
     get[String]("phone") map {
-      case id~subject~description~userName~eMail~phone => Posting(id, subject, description, userName, eMail, phone)
+      case id~verified~subject~description~userName~eMail~phone => Posting(id, verified, subject, description, userName, eMail, phone)
     }
   }
 
   def create(data: (String, String, String, String, String)) {
     DB.withConnection { implicit c =>
-      SQL("insert into posting (subject, description, userName, eMail, phone) values ({subject}, {description}, {userName}, {eMail}, {phone})").on(
+      SQL("insert into posting (verified, subject, description, userName, eMail, phone) values (false, {subject}, {description}, {userName}, {eMail}, {phone})").on(
         'subject -> data._1,
         'description -> data._2,
         'userName -> data._3,

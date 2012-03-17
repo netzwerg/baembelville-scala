@@ -5,6 +5,7 @@
 CREATE SEQUENCE posting_id_seq;
 CREATE TABLE posting (
     id integer NOT NULL DEFAULT nextval('posting_id_seq'),
+    verified boolean,
     subject varchar(255),
     description varchar(255),
     userName varchar(255),
