@@ -2,9 +2,8 @@
 
 # --- !Ups
 
-CREATE SEQUENCE posting_id_seq;
 CREATE TABLE posting (
-    id integer NOT NULL DEFAULT nextval('posting_id_seq'),
+    id varchar(255) NOT NULL,
     verified boolean,
     subject varchar(255),
     description varchar(255),
@@ -17,4 +16,3 @@ CREATE TABLE posting (
 # --- !Downs
 
 DROP TABLE posting;
-DROP SEQUENCE posting_id_seq;

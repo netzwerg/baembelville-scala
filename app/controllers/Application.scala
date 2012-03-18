@@ -3,6 +3,7 @@ package controllers
 import play.api._
 import play.api.mvc._
 import models.Posting
+import java.util.UUID
 
 object Application extends Controller {
 
@@ -28,12 +29,12 @@ object Application extends Controller {
         errors => BadRequest(views.html.listWanted(Posting.list())),
         data => {
           val posting = Posting.create(data)
-          Ok(views.html.requirePostingVerification(posting.id.get))
+          Ok(views.html.requirePostingVerification(posting.id))
         }
       )
   }
 
-  def verifyPosting(id: Long) = Action {
+  def verifyPosting(id: String) = Action {
     Posting.verify(id)
     Ok(views.html.confirmPostingVerification());
   }

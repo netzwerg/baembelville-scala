@@ -6,8 +6,9 @@ import play.api.db.DB
 import play.api.Play.current
 import play.api.data._
 import play.api.data.Forms._
+import java.util.UUID
 
-case class Posting(id: Pk[Long], verified: Boolean, subject: String, description: String, userName: String, eMail: String, phone: String)
+case class Posting(id: String, verified: Boolean, subject: String, description: String, userName: String, eMail: String, phone: String)
 
 object Posting {
 
@@ -22,14 +23,14 @@ object Posting {
   )
 
   val posting = {
-    get[Long]("id") ~
+      get[String]("id") ~
       get[Boolean]("verified") ~
       get[String]("subject") ~
       get[String]("description") ~
       get[String]("userName") ~
       get[String]("eMail") ~
       get[String]("phone") map {
-      case id ~ verified ~ subject ~ description ~ userName ~ eMail ~ phone => Posting(Id(id), verified, subject, description, userName, eMail, phone)
+      case id ~ verified ~ subject ~ description ~ userName ~ eMail ~ phone => Posting(id, verified, subject, description, userName, eMail, phone)
     }
   }
 
@@ -37,15 +38,10 @@ object Posting {
     DB.withConnection {
       implicit c =>
 
-        val posting = Posting(NotAssigned, false, data._1, data._2, data._3, data._4, data._5)
-
-        // get next posting id
-        val id: Long = posting.id.getOrElse {
-          SQL("select next value for posting_id_seq").as(scalar[Long].single)
-        }
+        val posting = Posting(UUID.randomUUID().toString, false, data._1, data._2, data._3, data._4, data._5)
 
         SQL("insert into posting values ({id}, {verified}, {subject}, {description}, {userName}, {eMail}, {phone})").on(
-          'id -> id,
+          'id -> posting.id,
           'verified -> posting.verified,
           'subject -> posting.subject,
           'description -> posting.description,
@@ -54,11 +50,10 @@ object Posting {
           'phone -> posting.phone
         ).executeUpdate()
 
-        posting.copy(id = Id(id))
-
+        return posting
     }
 
-  def verify(id: Long) {
+  def verify(id: String) {
     DB.withConnection(implicit c =>
       SQL("update posting set verified = true where id = {id}").on(
         'id -> id
