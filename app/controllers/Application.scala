@@ -22,14 +22,15 @@ object Application extends Controller {
     Ok(views.html.createPosting(Posting.postingForm))
   }
 
-  def newPosting = Action { implicit request =>
-    Posting.postingForm.bindFromRequest.fold(
-      errors => BadRequest(views.html.listWanted(Posting.list())),
-      data => {
-        val posting = Posting.create(data)
-        Ok(views.html.requirePostingVerification(posting.id.get))
-      }
-    )
+  def newPosting = Action {
+    implicit request =>
+      Posting.postingForm.bindFromRequest.fold(
+        errors => BadRequest(views.html.listWanted(Posting.list())),
+        data => {
+          val posting = Posting.create(data)
+          Ok(views.html.requirePostingVerification(posting.id.get))
+        }
+      )
   }
 
   def verifyPosting(id: Long) = Action {
