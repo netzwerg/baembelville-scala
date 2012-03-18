@@ -5,6 +5,7 @@
 CREATE TABLE posting (
     id varchar(255) NOT NULL,
     verified boolean,
+    category varchar(255),
     subject varchar(255),
     description varchar(255),
     userName varchar(255),

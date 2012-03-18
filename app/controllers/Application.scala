@@ -2,8 +2,8 @@ package controllers
 
 import play.api._
 import play.api.mvc._
-import models.Posting
 import java.util.UUID
+import models.{Category, Posting}
 
 object Application extends Controller {
 
@@ -12,11 +12,11 @@ object Application extends Controller {
   }
 
   def listWanted = Action {
-    Ok(views.html.listWanted(Posting.list()))
+    Ok(views.html.listWanted(Posting.list(Category.WANTED)))
   }
 
   def listOffered = Action {
-    Ok(views.html.listOffered(Posting.list()))
+    Ok(views.html.listOffered(Posting.list(Category.OFFERED)))
   }
 
   def createPosting = Action {
@@ -26,7 +26,7 @@ object Application extends Controller {
   def newPosting = Action {
     implicit request =>
       Posting.postingForm.bindFromRequest.fold(
-        errors => BadRequest(views.html.listWanted(Posting.list())),
+        errors => BadRequest,
         data => {
           val posting = Posting.create(data)
           Ok(views.html.requirePostingVerification(posting.id))
