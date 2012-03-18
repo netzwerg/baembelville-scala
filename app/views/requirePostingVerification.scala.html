@@ -1,8 +1,9 @@
+@(id : Long)
 @main("Bämbelville") {
     <div class="hero-unit">
         <h1>Ihr Inserat wurde kreiert.</h1>
         <p>Damit es auf Bämbelville erscheint, müssen Sie es zuerst aktivieren. Klicken
-        Sie dazu auf den Link, der Ihnen als E-Mail gesandt wurde.</p>
+        Sie dazu auf den Link, der Ihnen als E-Mail gesandt wurde. <a href="@routes.Application.verifyPosting(id)">Aktivieren</a></p>
         <a class="btn btn-primary btn-large" href="@routes.Application.index">
             Zur Übersicht
         </a>

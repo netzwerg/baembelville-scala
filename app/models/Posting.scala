@@ -7,8 +7,7 @@ import play.api.Play.current
 import play.api.data._
 import play.api.data.Forms._
 
-
-case class Posting(id: Long, verified: Boolean, subject: String, description: String, userName: String, eMail: String, phone: String)
+case class Posting(id: Pk[Long], verified: Boolean, subject: String, description: String, userName: String, eMail: String, phone: String)
 
 object Posting {
 
@@ -30,24 +29,44 @@ object Posting {
     get[String]("userName") ~
     get[String]("eMail") ~
     get[String]("phone") map {
-      case id~verified~subject~description~userName~eMail~phone => Posting(id, verified, subject, description, userName, eMail, phone)
+      case id~verified~subject~description~userName~eMail~phone => Posting(Id(id), verified, subject, description, userName, eMail, phone)
     }
   }
 
-  def create(data: (String, String, String, String, String)) {
+  def create(data: (String, String, String, String, String)) : Posting =
     DB.withConnection { implicit c =>
-      SQL("insert into posting (verified, subject, description, userName, eMail, phone) values (false, {subject}, {description}, {userName}, {eMail}, {phone})").on(
-        'subject -> data._1,
-        'description -> data._2,
-        'userName -> data._3,
-        'eMail -> data._4,
-        'phone -> data._5
-      ).executeUpdate()
+
+    val posting = Posting(NotAssigned, false, data._1, data._2, data._3, data._4, data._5)
+
+    // get next posting id
+    val id: Long = posting.id.getOrElse {
+      SQL("select next value for posting_id_seq").as(scalar[Long].single)
     }
+
+    SQL("insert into posting values ({id}, {verified}, {subject}, {description}, {userName}, {eMail}, {phone})").on(
+      'id -> id,
+      'verified -> posting.verified,
+      'subject -> posting.subject,
+      'description -> posting.description,
+      'userName -> posting.userName,
+      'eMail -> posting.eMail,
+      'phone -> posting.phone
+    ).executeUpdate()
+
+    posting.copy(id = Id(id))
+
+  }
+
+  def verify(id: Long) {
+    DB.withConnection( implicit c =>
+      SQL("update posting set verified = true where id = {id}").on(
+        'id -> id
+      ).executeUpdate()
+    )
   }
 
   def list() : List[Posting] = DB.withConnection { implicit c =>
-    SQL("select * from posting").as(posting *)
+    SQL("select * from posting where posting.verified = true").as(posting *)
   }
 
 }
