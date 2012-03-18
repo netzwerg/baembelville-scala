@@ -73,4 +73,12 @@ object Posting {
       ).as(posting *)
   }
 
+  def delete(id: String) {
+    DB.withConnection(implicit c =>
+      SQL("delete posting where id = {id}").on(
+        'id -> id
+      ).executeUpdate()
+    )
+  }
+
 }

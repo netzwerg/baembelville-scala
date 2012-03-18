@@ -36,7 +36,17 @@ object Application extends Controller {
 
   def verifyPosting(id: String) = Action {
     Posting.verify(id)
-    Ok(views.html.confirmPostingVerification());
+    Ok(views.html.verifyPosting());
+  }
+
+  def deletePosting(id: String) = Action {
+    Ok(views.html.deletePosting(id))
+  }
+
+  def deletePostingConfirmed(id: String) = Action {
+    implicit request =>
+      Posting.delete(id)
+      Redirect(routes.Application.listOffered())
   }
 
 }

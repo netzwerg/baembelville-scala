@@ -10,7 +10,9 @@ GET     /postings/offered                  controllers.Application.listOffered
 GET     /postings/wanted                   controllers.Application.listWanted
 GET     /postings/new                      controllers.Application.createPosting
 POST    /postings/new                      controllers.Application.newPosting
-GET     /postings/verify/:id               controllers.Application.verifyPosting(id: String)
+GET     /postings/verify/:id               controllers.Application.verifyPosting(id)
+GET     /postings/delete/:id               controllers.Application.deletePosting(id)
+GET     /postings/delete/:id/confirmed     controllers.Application.deletePostingConfirmed(id)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                      controllers.Assets.at(path="/public", file)

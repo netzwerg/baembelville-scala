@@ -1,0 +1,13 @@
+@(id: String)
+@main("Bämbelville") {
+    <div class="hero-unit">
+        <h1>Inserat wirklich löschen?</h1>
+        <p>Soll Ihr Eintrag unwiderruflich entfernt werden?</p>
+        <a class="btn btn-primary btn-large" href="@routes.Application.index">
+            Nein
+        </a>
+        <a class="btn btn-large" href="@routes.Application.deletePostingConfirmed(id)">
+            Ja
+        </a>
+    </div>
+}
