@@ -42,7 +42,7 @@ object Posting {
       implicit c =>
 
         val category = Category.withName(data._1)
-        val posting = Posting(UUID.randomUUID().toString, false, category, data._2, data._3, data._4, data._5, data._6)
+        val posting = Posting(UUID.randomUUID().toString, verified = false, category = category, subject = data._2, description = data._3, userName = data._4, eMail = data._5, phone = data._6)
 
         SQL("insert into posting values ({id}, {verified}, {category}, {subject}, {description}, {userName}, {eMail}, {phone})").on(
           'id -> posting.id,
