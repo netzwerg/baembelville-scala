@@ -16,11 +16,11 @@ object Posting {
   val postingForm = Form(
     tuple(
       "category" -> text,
-      "subject" -> text,
-      "description" -> text,
-      "userName" -> text,
-      "eMail" -> text,
-      "phone" -> text
+      "subject" -> nonEmptyText,
+      "description" -> nonEmptyText,
+      "userName" -> nonEmptyText,
+      "eMail" -> email,
+      "phone" -> nonEmptyText
     )
   )
 

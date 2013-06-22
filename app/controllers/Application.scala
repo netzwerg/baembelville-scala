@@ -24,7 +24,7 @@ object Application extends Controller {
   def newPosting = Action {
     implicit request =>
       Posting.postingForm.bindFromRequest.fold(
-        errors => BadRequest,
+        errors => BadRequest(views.html.createPosting(errors)),
         data => {
           val posting = Posting.create(data)
           Ok(views.html.requirePostingVerification(posting.id))

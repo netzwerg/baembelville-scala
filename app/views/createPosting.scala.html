@@ -1,4 +1,4 @@
-@(postingForm: Form[(String, String, String, String, String, String)])
+@(postingForm: Form[(String, String, String, String, String, String)])(implicit lang: Lang)
 @import tags._
 @main("Bämbelville") {
     <script>
@@ -40,11 +40,11 @@
                 </div>
             </div>
         }
-            @helper.inputText(postingForm("subject"), '_label -> "Titel", 'class -> "span6")
-            @helper.textarea(postingForm("description"), '_label -> "Beschreibung", 'class -> "span6", 'rows -> "3")
-            @helper.inputText(postingForm("userName"), '_label -> "Name", 'class -> "span6")
-            @helper.inputText(postingForm("eMail"), '_label -> "E-Mail (wird nicht veröffentlicht)", 'class -> "span6")
-            @helper.inputText(postingForm("phone"), '_label -> "Telefon", 'class -> "span6")
+            @helper.inputText(postingForm("subject"), '_label -> "Titel", 'class -> "span6", '_showConstraints -> false)
+            @helper.textarea(postingForm("description"), '_label -> "Beschreibung", 'class -> "span6", 'rows -> "3", '_showConstraints -> false)
+            @helper.inputText(postingForm("userName"), '_label -> "Name", 'class -> "span6", '_showConstraints -> false)
+            @helper.inputText(postingForm("eMail"), '_label -> "E-Mail (wird nicht veröffentlicht)", 'class -> "span6", '_showConstraints -> false)
+            @helper.inputText(postingForm("phone"), '_label -> "Telefon", 'class -> "span6", '_showConstraints -> false)
             <input type="submit" class="btn btn-primary" value="OK">
         <!--div data-role="fieldcontain">
             <label>Vorschau:</label>
