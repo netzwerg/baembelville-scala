@@ -36,13 +36,15 @@ object Application extends Controller {
   }
 
   def sendMail(posting: Posting) {
-    import com.typesafe.plugin._
-    val mail = use[MailerPlugin].email
-    // TODO: Configuration including Links for Activation & Deletion
-    mail.setSubject("New posting, yo!")
-    mail.addRecipient(posting.eMail)
-    mail.addFrom("BliBlaBlo <noreply@email.com>")
-    mail.sendHtml("<html>Hello <b>dear</b></html>")
+      import play.api.libs.mailer._
+          // TODO: Configuration including Links for Activation & Deletion
+          val mail = Email(
+                  "New posting, yo!",
+                  "BliBlaBlo <noreply@email.com>",
+                  Seq(posting.eMail),
+                  bodyHtml = Some("<html>Hello <b>dear</b></html>")
+                  )
+          MailerPlugin.send(mail)
   }
 
   def verifyPosting(id: String) = Action {
